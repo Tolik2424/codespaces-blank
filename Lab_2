@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+
+class ListNode {
+public:
+    int val;
+    ListNode* next;
+
+    ListNode(int val) : val(val), next(nullptr) {}
+};
+
+class MyLinkedList {
+private:
+    ListNode* head;
+
+public:
+    MyLinkedList() : head(nullptr) {}
+
+    // Добавление нового элемента в начало списка
+    void addAtHead(int val) {
+        ListNode* newNode = new ListNode(val);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Вывод всех значений элементов списка через пробел
+    void print() {
+        ListNode* current = head;
+        while (current != nullptr) {
+            cout << current->val << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    // Изменение указателей на следующий элемент для обратного порядка
+    void reverse() {
+        ListNode* prev = nullptr;
+        ListNode* current = head;
+        ListNode* next = nullptr;
+
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+};
+
+int main() {
+    MyLinkedList list;
+
+    list.addAtHead(3);
+    list.addAtHead(2);
+    list.addAtHead(1);
+
+    cout << "Список:" << endl;
+    list.print(); // Вывод: 1 2 3
+
+    cout << "Список в обратном порядке:" << endl;
+    list.reverse();
+    list.print(); // Вывод: 3 2 1
+
+    return 0;
+}
